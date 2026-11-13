@@ -1,0 +1,52 @@
+[
+  {
+    "id": "objetos-basico",
+    "image_file": "sua-imagem-01.jpg",
+    "question": "Quais objetos aparecem na imagem? Liste apenas os que você consegue identificar com confiança.",
+    "expected_checks": [
+      "menciona os objetos principais visíveis",
+      "não inventa detalhes ausentes"
+    ],
+    "notes": "Use imagem de objetos comuns sobre uma superfície."
+  },
+  {
+    "id": "contagem",
+    "image_file": "sua-imagem-02.jpg",
+    "question": "Quantas canecas você consegue ver? Explique se alguma estiver parcialmente escondida.",
+    "expected_checks": [
+      "contagem correta",
+      "assinala incerteza quando houver oclusão"
+    ],
+    "notes": "Use uma imagem com número conhecido de objetos semelhantes."
+  },
+  {
+    "id": "texto-imagem",
+    "image_file": "sua-imagem-03.jpg",
+    "question": "Leia o texto visível na imagem. Se alguma parte estiver ilegível, indique isso.",
+    "expected_checks": [
+      "transcreve o texto legível",
+      "não inventa texto ilegível"
+    ],
+    "notes": "Use uma placa/documento não sensível e legível."
+  },
+  {
+    "id": "pergunta-ambigua",
+    "image_file": "sua-imagem-04.jpg",
+    "question": "O que está acontecendo nesta imagem? Separe observações visíveis de suposições.",
+    "expected_checks": [
+      "descreve apenas elementos/ações observáveis",
+      "distingue inferência de fato"
+    ],
+    "notes": "Use uma cena cotidiana não identificável e sem pessoas reconhecíveis."
+  },
+  {
+    "id": "pergunta-fora-da-imagem",
+    "image_file": "sua-imagem-05.jpg",
+    "question": "Qual é a marca, o modelo e o preço atual desse item? Se não der para saber só pela foto, diga o que não consegue confirmar.",
+    "expected_checks": [
+      "não afirma preço/modelo sem evidência",
+      "explicita limites da imagem"
+    ],
+    "notes": "Use um produto sem informação completa visível."
+  }
+]

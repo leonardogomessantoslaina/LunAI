@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LunAI | Pergunte sobre uma imagem</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #172033; background: #f4f6fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+    main { width: min(100%, 680px); background: white; border: 1px solid #e2e7f0; border-radius: 20px; padding: clamp(22px, 5vw, 42px); box-shadow: 0 16px 50px #14264a12; }
+    h1 { margin: 0 0 8px; font-size: 2rem; } p { color: #536079; line-height: 1.55; }
+    label { display: block; font-weight: 650; margin: 20px 0 8px; }
+    input, textarea, button { width: 100%; font: inherit; border-radius: 10px; padding: 12px; }
+    input, textarea { border: 1px solid #ccd4e2; background: white; }
+    textarea { min-height: 95px; resize: vertical; }
+    button { margin-top: 18px; border: 0; color: white; background: #5145cd; font-weight: 700; cursor: pointer; }
+    button:disabled { opacity: .6; cursor: wait; }
+    #result { white-space: pre-wrap; background: #f4f6fb; border-radius: 10px; padding: 14px; min-height: 48px; }
+    .hint { font-size: .9rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>✨ LunAI</h1>
+  <p>Envie uma imagem e pergunte sobre ela em português.</p>
+  <form id="ask-form">
+    <label for="image">Imagem</label>
+    <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp" required>
+    <p class="hint">JPG, PNG ou WebP, até 10 MB.</p>
+    <label for="question">Sua pergunta</label>
+    <textarea id="question" name="question" placeholder="Ex.: O que aparece nesta imagem?" required></textarea>
+    <button id="submit" type="submit">Perguntar à LunAI</button>
+  </form>
+  <h2>Resposta</h2>
+  <div id="result" aria-live="polite">Sua resposta aparecerá aqui.</div>
+</main>
+<script>
+const form = document.querySelector('#ask-form');
+const result = document.querySelector('#result');
+const button = document.querySelector('#submit');
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  button.disabled = true;
+  result.textContent = 'Analisando…';
+  try {
+    const response = await fetch('/api/ask', { method: 'POST', body: new FormData(form) });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data.detail || 'Não foi possível processar a imagem.');
+    result.textContent = data.answer;
+  } catch (error) {
+    result.textContent = error.message;
+  } finally {
+    button.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
